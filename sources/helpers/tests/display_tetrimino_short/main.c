@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 19:38:08 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/11 14:38:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/11 16:35:47 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(void)
 	printf(GREEN_BG "DISPLAY TETRIMINO SHORT" UNCOLOR "\n");
 	if (ft_test(0)
 		|| ft_test(0b0110110000000000)
+		|| ft_test(0b1111111111111111)
 		|| ft_test(65535))
 	{
 		printf("\n");
