@@ -6,16 +6,26 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 19:38:42 by thakala           #+#    #+#              #
-#    Updated: 2022/01/11 14:28:15 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/13 11:42:50 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FUNCTIONS = \
-	display_tetrimino_short
+	display_tetrimino_short \
+	short_to_ascii_binary
+
+SRC_DIR = ..
 
 SOURCES = ${FUNCTIONS:=.c}
 
-SRC_DIR = ..
+AUXILIARY_FUNCTIONS = \
+	debug_error
+
+AUX_DIR = ../auxiliary
+
+AUXILIARY_SOURCES = ${AUXILIARY_FUNCTIONS:=.c}
+
+AUXILIARY_SOURCES := $(foreach auxiliary, $(AUXILIARY_SOURCES), $(AUX_DIR)/$(auxiliary))
 
 INC_DIR = \
 	$(SRC_DIR)/includes \
@@ -38,13 +48,15 @@ $(FUNCTIONS): $(SOURCES)
 $(SOURCES): $(INCLUDES) | dir
 	@echo "SOURCES rule: $(patsubst %.c, $(BIN_DIR)/$(strip $(patsubst %.c, %, $@))/%.out, $@)"
 	@echo "SOURCES rule: $(patsubst %.c, %, $@)/main.c"
-	$(CC) $(CFLAGS) ../$@ $(patsubst %.c, %, $@)/main.c \
+	$(CC) $(CFLAGS) $(SRC_DIR)/$@ $(patsubst %.c, %, $@)/main.c \
+		$(AUXILIARY_SOURCES) \
 		$(foreach inc_dir, $(INC_DIR), -I$(inc_dir)) \
 		-o $(patsubst %.c, $(BIN_DIR)/$(strip $(patsubst %.c, %, $@))/%.out, $@)
 
 dir:
 	mkdir -p $(foreach function, $(FUNCTIONS), $(BIN_DIR)/$(function))
 
+#change to the non-wildcard solution (generate binaries list)
 run: all
 	$(foreach binary, $(shell find $(BIN_DIR) -type f -name *.out -maxdepth 2), ./$(binary);)
 
