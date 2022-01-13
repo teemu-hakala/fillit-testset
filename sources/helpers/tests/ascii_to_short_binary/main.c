@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 19:38:08 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 15:12:56 by thakala          ###   ########.fr       */
+/*   Created: 2022/01/13 13:00:41 by thakala           #+#    #+#             */
+/*   Updated: 2022/01/13 18:20:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 #include "tests.h"
 #include <stdio.h>
 
-static int	ft_test(unsigned short tetrimino)
+static int	ft_test(const char *tetrimino, const unsigned short reference)
 {
-	printf(CYAN_BG "%7hu" UNCOLOR "\n", tetrimino);
-	printf(LIGHT_GREEN);
+	unsigned short	result;
+
+	printf(CYAN_BG "%s" UNCOLOR "\n", tetrimino);
+	result = ascii_to_short_binary(tetrimino);
+	if (result == reference)
+		printf(LIGHT_GREEN);
+	else
+	{
+		printf(RED_BG);
+		printf("%s\t", short_to_ascii_binary(result));
+	}
 	fflush(stdout);
-	display_tetrimino_short(tetrimino);
+	printf("%hu", result);
 	printf(UNCOLOR);
 	printf("\n");
 	return (0);
@@ -27,18 +36,13 @@ static int	ft_test(unsigned short tetrimino)
 
 int	main(void)
 {
-	printf(GREEN_BG "DISPLAY TETRIMINO SHORT" UNCOLOR "\n");
-	if (ft_test(0)
-		|| ft_test(0b1000000000000000 >> 1)
-		|| ft_test(0b10100000000000000000000000000000 >> 17)
-		|| ft_test((short)(-1))
-		|| ft_test(((1U << 31) >> 31))
-		|| ft_test((0b00000000000000000000000000000001 << 31) >> 31)
-		|| ft_test((0b00000000000000000000000000000001U << 31) >> 31)
-		|| ft_test(0b1111111111111111 >> 2)
-		|| ft_test(0b0110110000000000)
-		|| ft_test(0b1111111111111111)
-		|| ft_test(65535))
+	printf(GREEN_BG "ASCII TO SHORT BINARY" UNCOLOR "\n");
+	if (ft_test("0", 0)
+		|| ft_test("0000000000000000", 0b0000000000000000)
+		|| ft_test("0110110000000000", 0b0110110000000000)
+		|| ft_test("0111111111111111", 0b0111111111111111)
+		|| ft_test("1000000000000000", 0b1000000000000000)
+		|| ft_test("1111111111111111", 0b1111111111111111))
 	{
 		printf("\n");
 		return (1);

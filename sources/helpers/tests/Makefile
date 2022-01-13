@@ -6,13 +6,14 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 19:38:42 by thakala           #+#    #+#              #
-#    Updated: 2022/01/13 11:42:50 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/13 18:04:07 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FUNCTIONS = \
 	display_tetrimino_short \
-	short_to_ascii_binary
+	short_to_ascii_binary \
+	ascii_to_short_binary
 
 SRC_DIR = ..
 
