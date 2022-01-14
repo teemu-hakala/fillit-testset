@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:00:41 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 18:20:10 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/14 11:38:54 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_test(const char *tetrimino, const unsigned short reference)
 	else
 	{
 		printf(RED_BG);
-		printf("%s\t", short_to_ascii_binary(result));
+		printf("ref: %hu\tfct: ", reference);
 	}
 	fflush(stdout);
 	printf("%hu", result);

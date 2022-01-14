@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:11:03 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 18:14:18 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/14 17:16:55 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ unsigned short	ascii_to_short_binary(const char *str)
 	bit_count = 0;
 	while (bit_count++ < SHORT_BITCOUNT && (*str == '0' || *str == '1'))
 	{
+		result <<= 1;
 		if (*str++ == '1')
 			result ^= 1;
-		result <<= 1;
 	}
 	return (result);
 }
