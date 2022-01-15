@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.h                                          :+:      :+:    :+:   */
+/*   ascii_to_long_binary.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 13:53:20 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/15 11:30:33 by thakala          ###   ########.fr       */
+/*   Created: 2022/01/14 17:32:55 by thakala           #+#    #+#             */
+/*   Updated: 2022/01/15 11:30:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HELPERS_H
-# define HELPERS_H
+#include "helpers.h"
+#include <unistd.h>
+#define LONG_BITCOUNT 64
 
-void			display_tetrimino_short(short tetrimino);
-char			*short_to_ascii_binary(unsigned short n);
-unsigned short	ascii_to_short_binary(const char *str);
-char			*long_to_ascii_binary(unsigned long n);
-unsigned long	ascii_to_long_binary(const char *str);
-void			*debug_error(char *message);
+unsigned long	ascii_to_long_binary(const char *str)
+{
+	unsigned short	result;
+	unsigned char	bit_count;
 
-#endif
+	result = 0;
+	bit_count = 0;
+	while (bit_count++ < LONG_BITCOUNT && (*str == '0' || *str == '1'))
+	{
+		result <<= 1;
+		if (*str++ == '1')
+			result ^= 1;
+	}
+	return (result);
+}
