@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 19:38:08 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 15:12:56 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/15 13:03:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,34 @@ static int	ft_test(unsigned short tetrimino)
 	display_tetrimino_short(tetrimino);
 	printf(UNCOLOR);
 	printf("\n");
+	return (0);
+}
+
+static int	all_tetriminoes(void)
+{
+	printf(GREEN_BG " DISPLAY TETRIMINO SHORT: ALL TETRIMINOES" UNCOLOR "\n");
+	if (ft_test(0b1111000000000000)
+		|| ft_test(0b1000100010001000)
+		|| ft_test(0b1110001000000000)
+		|| ft_test(0b0100010011000000)
+		|| ft_test(0b1000111000000000)
+		|| ft_test(0b1100100010000000)
+		|| ft_test(0b1110100000000000)
+		|| ft_test(0b1100010001000000)
+		|| ft_test(0b0010111000000000)
+		|| ft_test(0b1000100011000000)
+		|| ft_test(0b1100110000000000)
+		|| ft_test(0b0110110000000000)
+		|| ft_test(0b1000110001000000)
+		|| ft_test(0b1110010000000000)
+		|| ft_test(0b0100110001000000)
+		|| ft_test(0b0100111000000000)
+		|| ft_test(0b1000110010000000)
+		|| ft_test(0b1100011000000000)
+		|| ft_test(0b0100110010000000))
+	{
+		return (1);
+	}
 	return (0);
 }
 
@@ -44,5 +72,6 @@ int	main(void)
 		return (1);
 	}
 	printf("^Observe the results in stdout.\n");
+	all_tetriminoes();
 	return (0);
 }
