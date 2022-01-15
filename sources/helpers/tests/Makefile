@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 19:38:42 by thakala           #+#    #+#              #
-#    Updated: 2022/01/14 17:30:27 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/15 12:02:00 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ FUNCTIONS = \
 	short_to_ascii_binary \
 	ascii_to_short_binary \
 	long_to_ascii_binary \
-	ascii_to_long_binary
+	ascii_to_long_binary \
+	display_tetrimino_long
 
 SRC_DIR = ..
 
@@ -47,6 +48,7 @@ all: $(FUNCTIONS)
 
 $(FUNCTIONS): $(SOURCES)
 	@echo "FUNCTIONS rule: $@"
+	./$(BIN_DIR)/$@/$@.out
 
 $(SOURCES): $(INCLUDES) | dir
 	@echo "SOURCES rule: $(patsubst %.c, $(BIN_DIR)/$(strip $(patsubst %.c, %, $@))/%.out, $@)"

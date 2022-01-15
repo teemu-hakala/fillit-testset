@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:31:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/15 11:29:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/15 11:51:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	ft_test(unsigned long tetrimino)
 {
-	printf(CYAN_BG "%15lu" UNCOLOR "\n", tetrimino);
+	printf(CYAN_BG "%21lu" UNCOLOR "\n", tetrimino);
 	printf(LIGHT_GREEN);
 	fflush(stdout);
 	printf("%s", long_to_ascii_binary(tetrimino));
