@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:40:16 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/15 12:26:36 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/16 12:20:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,35 @@ static int	ft_test(unsigned long tetrimino)
 	return (0);
 }
 
+static int	all_tetriminoes(void)
+{
+	set_board_size(4);
+	printf(GREEN_BG " DISPLAY TETRIMINO LONG: ALL TETRIMINOES" UNCOLOR "\n");
+	if (ft_test(0b1111000000000000UL << 48)
+		|| ft_test(0b1000100010001000UL << 48)
+		|| ft_test(0b1110001000000000UL << 48)
+		|| ft_test(0b0100010011000000UL << 48)
+		|| ft_test(0b1000111000000000UL << 48)
+		|| ft_test(0b1100100010000000UL << 48)
+		|| ft_test(0b1110100000000000UL << 48)
+		|| ft_test(0b1100010001000000UL << 48)
+		|| ft_test(0b0010111000000000UL << 48)
+		|| ft_test(0b1000100011000000UL << 48)
+		|| ft_test(0b1100110000000000UL << 48)
+		|| ft_test(0b0110110000000000UL << 48)
+		|| ft_test(0b1000110001000000UL << 48)
+		|| ft_test(0b1110010000000000UL << 48)
+		|| ft_test(0b0100110001000000UL << 48)
+		|| ft_test(0b0100111000000000UL << 48)
+		|| ft_test(0b1000110010000000UL << 48)
+		|| ft_test(0b1100011000000000UL << 48)
+		|| ft_test(0b0100110010000000UL << 48))
+	{
+		return (1);
+	}
+	return (0);
+}
+
 int	main(void)
 {
 	printf(GREEN_BG "DISPLAY TETRIMINO LONG" UNCOLOR "\n");
@@ -48,6 +77,7 @@ int	main(void)
 		printf("\n");
 		return (1);
 	}
+	all_tetriminoes();
 	printf("^Observe the results in stdout.\n");
 	return (0);
 }
