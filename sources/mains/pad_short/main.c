@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 12:45:43 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/16 17:07:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/16 18:45:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ft_test(const unsigned short tetrimino, \
 	const unsigned char board_size)
 {
 	printf(GREEN_BG " BOARD_SIZE %hhu" UNCOLOR "\n", board_size);
+	printf(GREEN_BG " INDEX %hhu" UNCOLOR "\n", index);
 	fflush(stdout);
 	printf(BLUE_BG " REFERENCE TETRIMINO" UNCOLOR "\n");
 	fflush(stdout);
@@ -40,11 +41,11 @@ static int	ft_test_indices(const unsigned short tetrimino, \
 	const unsigned char board_size)
 {
 	unsigned char	index;
-	unsigned char	max_index;
+	unsigned short	max_index;
 
 	index = 0;
 	max_index = board_size * board_size;
-	while (index < max_index)
+	while (index <= max_index)
 		ft_test(tetrimino, index++, board_size);
 	return (0);
 }
