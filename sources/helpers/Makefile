@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 13:06:52 by thakala           #+#    #+#              #
-#    Updated: 2022/01/16 13:25:18 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/16 16:49:58 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,19 @@ FUNCTIONS = \
 	long_to_ascii_binary \
 	short_to_ascii_binary
 
+AUXILIARY_FUNCTIONS = \
+	debug_error
+
+AUX_DIR = auxiliary
+
+AUXILIARY_SOURCES = ${AUXILIARY_FUNCTIONS:=.c}
+
+AUXILIARY_OBJECTS = ${AUXILIARY_FUNCTIONS:=.o}
+
+AUXILIARY_SOURCES := $(foreach auxiliary, $(AUXILIARY_SOURCES), $(AUX_DIR)/$(auxiliary))
+
+OBJ_DIR = objects
+
 INCLUDES_DIR = includes
 
 SRCS = $(foreach src, $(FUNCTIONS), $(addsuffix .c, $(src)))
@@ -32,20 +45,31 @@ DBFLAGS = -g -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(AUXILIARY_OBJECTS) | dir-obj
+	ar rcs $(NAME) \
+		$(foreach o, $(OBJS), $(OBJ_DIR)/$(o)) \
+		$(foreach o, $(AUXILIARY_OBJECTS), $(OBJ_DIR)/$(o)) \
 
-$(OBJS): $(SRCS)
+$(OBJS): $(SRCS) | dir-obj
 	$(CC) $(DBFLAGS) -c $(patsubst %.o, %.c, $@) \
-		-I$(INCLUDES_DIR)
+		-I $(INCLUDES_DIR) \
+		-o $(OBJ_DIR)/$@
 
-clean:
-	/bin/rm -f $(OBJS)
+$(AUXILIARY_OBJECTS): $(AUXILIARY_SOURCES) | dir-obj
+	$(CC) $(DBFLAGS) -c $(patsubst %.o, $(AUX_DIR)/%.c, $@) \
+		-I$(INCLUDES_DIR) \
+		-o $(OBJ_DIR)/$@
 
-fclean: clean
-	/bin/rm -f $(NAME)
+dir-obj:
+	mkdir -p $(OBJ_DIR)
 
-re: fclean all
+#clean:
+#	/bin/rm -f $(OBJS)
+
+#fclean: clean
+#	/bin/rm -f $(NAME)
+
+#re: fclean all
 
 
 

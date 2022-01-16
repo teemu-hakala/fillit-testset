@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/16 16:19:42 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/16 16:29:49 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ $(FILLIT_FUNCTIONS): $(FILLIT_OBJECTS) | dir-obj-main dir-bin
 		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
 		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
-		-o $(BIN_DIR)/$@.out
+		-o $(BIN_DIR)/$@.out \
+		$(SRC_DIR)/helpers/libhelp.a
 
 $(FILLIT_OBJECTS): $(FILLIT_SOURCES) | dir-obj
 	@echo "$@ rule called"
