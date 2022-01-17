@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 12:45:43 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/16 18:45:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/17 12:10:11 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "helpers.h"
 #include "colours.h"
 #include "tetriminoes.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 static int	ft_test(const unsigned short tetrimino, \
@@ -48,6 +49,14 @@ static int	ft_test_indices(const unsigned short tetrimino, \
 	while (index <= max_index)
 		ft_test(tetrimino, index++, board_size);
 	return (0);
+}
+
+static void	function_loader_for_debugging(void)
+{
+	char			*t_2_ascii;
+
+	t_2_ascii = long_to_ascii_binary(T_2);
+	free(t_2_ascii);
 }
 
 int	main(void)
