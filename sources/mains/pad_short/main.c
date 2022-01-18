@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 12:45:43 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/17 15:07:55 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/18 14:20:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ static int	ft_test(const unsigned short tetrimino, \
 			index, board_size) >> index % 64), board_size);
 	}
 	else
+	{
+		printf(GREEN_BG " PIECE FITS ON THE BOARD" UNCOLOR "\n");
 		display_tetrimino_long(tetrilong >> index % 64, board_size);
+	}
 	printf("\n\n");
 	fflush(stdout);
 	return (0);
@@ -112,11 +115,11 @@ int	main(void)
 	unsigned short	board_size;
 
 	function_loader_for_debugging();
-	board_size = 4;
+	board_size = 9; // 4, 14
 	while (board_size <= 20)
 	{
-		if (ft_test_indices(I_0, board_size)
-			|| ft_test_indices(I_1, board_size)
+		if (/*ft_test_indices(I_0, board_size)
+			||*/ ft_test_indices(I_1, board_size)
 			|| ft_test_indices(J_0, board_size)
 			|| ft_test_indices(J_1, board_size)
 			|| ft_test_indices(J_2, board_size)
