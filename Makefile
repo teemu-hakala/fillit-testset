@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/21 14:02:46 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/21 19:19:58 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ pad_short: $(FILLIT_DIR)/pad_short.c
 		-o $(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
 		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) -c $(SRC_DIR)/mains/$@/main.c \
-		-o $(OBJ_DIR)/mains/$@)/main.o \
+		-o $(OBJ_DIR)/mains/$@/main.o \
 		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
 		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 12:45:43 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/18 14:20:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 11:41:58 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,37 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static unsigned char	redundancy_check_ref(unsigned long tetrilong, \
+/*static unsigned char	redundancy_check_ref(unsigned long tetrilong, \
 	unsigned char shift_modulus)
 {
 	unsigned long	checker;
 
 	checker = tetrilong;
 	return ((checker >> shift_modulus) << shift_modulus == tetrilong);
+}*/
+
+static unsigned char	redundancy_check_board(unsigned long tetrilong, \
+	unsigned long index, unsigned long board_size)
+{
+	unsigned long	checker;
+	long			shift;
+	long			index_modulus;
+	long			board_modulus;
+
+	index_modulus = index % 64;
+	board_modulus = board_size * board_size % 64;
+	checker = tetrilong;
+	if (index_modulus > board_modulus)
+	{
+		shift = index_modulus - board_modulus;
+		return (((checker >> shift) << shift) == tetrilong);
+	}
+	else if (index >= 64 && index_modulus + 64 > board_modulus)
+	{
+		shift = index_modulus + 64 - board_modulus;
+		return (((checker >> shift) << shift) == tetrilong);
+	}
+	return (1);
 }
 
 unsigned long	pad_short_ref(unsigned short tetrimino, unsigned short index, \
@@ -72,7 +96,8 @@ static int	ft_test(const unsigned short tetrimino, \
 	printf(BLUE_BG " PADDED TETRIMINO" UNCOLOR "\n");
 	fflush(stdout);
 	tetrilong = pad_short(tetrimino, index, board_size);
-	if (!redundancy_check_ref(tetrilong, index % (board_size * board_size)))
+	if (tetrilong == (unsigned long)(-1) ||
+		!redundancy_check_board(tetrilong, index, board_size))
 	{
 		printf(RED_BG " PIECE DOESN'T FIT ON THE BOARD" UNCOLOR "\n");
 		fflush(stdout);
@@ -115,7 +140,7 @@ int	main(void)
 	unsigned short	board_size;
 
 	function_loader_for_debugging();
-	board_size = 9; // 4, 14
+	board_size = 9; // 5, 4, 14
 	while (board_size <= 20)
 	{
 		if (/*ft_test_indices(I_0, board_size)
