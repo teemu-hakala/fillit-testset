@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:44:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 15:41:44 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 17:19:37 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static int	ft_test(unsigned long board_size)
 			if (!success)
 				printf("success: %hhu\n", success);
 			display_bitarray(bitarr, board_size);
-			bitarrunset(bitarr, index, tetrilong);
+			if (success)
+				bitarrunset(bitarr, index, tetrilong);
 			display_bitarray(bitarr, board_size);
 		}
 		index++;
