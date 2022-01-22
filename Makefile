@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/21 19:19:58 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/22 13:07:34 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FILLIT_DIR = $(FILLIT_DIR_CONFIG)/fillit
 FILLIT_FUNCTIONS = \
 	pad_short \
 	bitarray
+#	bitarrset
 #	solve
 
 FILLIT_SOURCES := ${FILLIT_FUNCTIONS:=.c}
@@ -95,6 +96,24 @@ pad_short: $(FILLIT_DIR)/pad_short.c
 		$(LIBFT_DIR)/libft.a
 
 bitarray: $(FILLIT_DIR)/bitarray.c
+	@echo "$@ rule called"
+	$(CC) $(DBFLAGS) -c $(patsubst %, $(FILLIT_DIR)/%.c, $@) \
+		-o $(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrzero.c \
+		-o $(OBJ_DIR)/fillit/bitarrzero.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(SRC_DIR)/mains/$@/main.c \
+		-o $(OBJ_DIR)/mains/$@/main.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
+		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(OBJ_DIR)/fillit/bitarrzero.o \
+		-o $(BIN_DIR)/$@/$@.out \
+		$(SRC_DIR)/helpers/libhelp.a \
+		$(LIBFT_DIR)/libft.a
+
+bitarrset: $(FILLIT_DIR)/bitarrset.c
 	@echo "$@ rule called"
 	$(CC) $(DBFLAGS) -c $(patsubst %, $(FILLIT_DIR)/%.c, $@) \
 		-o $(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \

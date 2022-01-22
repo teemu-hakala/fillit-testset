@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 13:06:52 by thakala           #+#    #+#              #
-#    Updated: 2022/01/16 16:49:58 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/22 13:01:37 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ FUNCTIONS = \
 	display_tetrimino_long \
 	display_tetrimino_short \
 	long_to_ascii_binary \
-	short_to_ascii_binary
+	short_to_ascii_binary \
+	display_bitarray
 
 AUXILIARY_FUNCTIONS = \
 	debug_error
@@ -33,7 +34,7 @@ AUXILIARY_SOURCES := $(foreach auxiliary, $(AUXILIARY_SOURCES), $(AUX_DIR)/$(aux
 
 OBJ_DIR = objects
 
-INCLUDES_DIR = includes
+INC_DIR = includes ../../../fillit-mrozhnov-thakala/fillit/
 
 SRCS = $(foreach src, $(FUNCTIONS), $(addsuffix .c, $(src)))
 
@@ -52,12 +53,12 @@ $(NAME): $(OBJS) $(AUXILIARY_OBJECTS) | dir-obj
 
 $(OBJS): $(SRCS) | dir-obj
 	$(CC) $(DBFLAGS) -c $(patsubst %.o, %.c, $@) \
-		-I $(INCLUDES_DIR) \
+		$(foreach i, $(INC_DIR), -I $(i)) \
 		-o $(OBJ_DIR)/$@
 
 $(AUXILIARY_OBJECTS): $(AUXILIARY_SOURCES) | dir-obj
 	$(CC) $(DBFLAGS) -c $(patsubst %.o, $(AUX_DIR)/%.c, $@) \
-		-I$(INCLUDES_DIR) \
+		$(foreach i, $(INC_DIR), -I $(i)) \
 		-o $(OBJ_DIR)/$@
 
 dir-obj:
