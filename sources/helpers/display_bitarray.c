@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:40:16 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 14:30:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 15:15:57 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
 		first = 1;
 		while (bitcount % ULONG_BITCOUNT || first)
 		{
-			n = bitarr->arr[c] >> (ULONG_BITCOUNT - bitcount % ULONG_BITCOUNT);
+			n = bitarr->arr[c] >> (ULONG_BITCOUNT - bitcount % ULONG_BITCOUNT - 1);
 			first = 0;
 			if (n & 1)
 				write(1, "1", 1);
