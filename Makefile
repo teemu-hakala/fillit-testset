@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/22 15:31:18 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/23 16:33:42 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ FILLIT_DIR = $(FILLIT_DIR_CONFIG)/fillit
 FILLIT_FUNCTIONS = \
 	pad_short \
 	bitarray \
-	bitarrset
-#	solve
+	bitarrset \
+	solve
 
 FILLIT_SOURCES := ${FILLIT_FUNCTIONS:=.c}
 
@@ -144,4 +144,49 @@ bitarrset: $(FILLIT_DIR)/bitarrset.c
 		$(LIBFT_DIR)/libft.a
 
 
+solve: $(FILLIT_DIR)/solve.c
+	@echo "$@ rule called"
+	$(CC) $(DBFLAGS) -c $(patsubst %, $(FILLIT_DIR)/%.c, $@) \
+		-o $(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/pad_short.c \
+		-o $(OBJ_DIR)/fillit/pad_short.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarray.c \
+		-o $(OBJ_DIR)/fillit/bitarray.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrset.c \
+		-o $(OBJ_DIR)/fillit/bitarrset.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrzero.c \
+		-o $(OBJ_DIR)/fillit/bitarrzero.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrunset.c \
+		-o $(OBJ_DIR)/fillit/bitarrunset.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/place_alphabet.c \
+		-o $(OBJ_DIR)/fillit/place_alphabet.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/split_long.c \
+		-o $(OBJ_DIR)/fillit/split_long.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/display_solution_board.c \
+		-o $(OBJ_DIR)/fillit/display_solution_board.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(SRC_DIR)/mains/$@/main.c \
+		-o $(OBJ_DIR)/mains/$@/main.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
+		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(OBJ_DIR)/fillit/pad_short.o \
+		$(OBJ_DIR)/fillit/bitarray.o \
+		$(OBJ_DIR)/fillit/bitarrset.o \
+		$(OBJ_DIR)/fillit/bitarrzero.o \
+		$(OBJ_DIR)/fillit/bitarrunset.o \
+		$(OBJ_DIR)/fillit/place_alphabet.o \
+		$(OBJ_DIR)/fillit/split_long.o \
+		$(OBJ_DIR)/fillit/display_solution_board.o \
+		-o $(BIN_DIR)/$@/$@.out \
+		$(SRC_DIR)/helpers/libhelp.a \
+		$(LIBFT_DIR)/libft.a
 
