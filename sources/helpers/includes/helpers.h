@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:53:20 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 13:13:05 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:35:58 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "fillit.h"
 
-void			display_tetrimino_short(short tetrimino);
+void			display_tetrimino_short(unsigned short tetrimino);
 char			*short_to_ascii_binary(unsigned short n);
 unsigned short	ascii_to_short_binary(const char *str);
 char			*long_to_ascii_binary(unsigned long n);

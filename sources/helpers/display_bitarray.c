@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:40:16 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 15:15:57 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:54:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
 			first = 0;
 			if (n & 1)
 				write(1, "1", 1);
-			else
+			else if (height < board_size)
 				write(1, "0", 1);
+			else
+				write(1, "-", 1);
 			if (height < board_size && bitcount % board_size == board_size - 1)
 			{
 				write(1, "\n", 1);

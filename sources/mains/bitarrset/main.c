@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:44:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 13:20:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:56:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,13 @@ static int	ft_test(unsigned short tetrimino, unsigned long board_size)
 	unsigned long	tetrilong;
 
 
+	printf(GREEN_BG "BOARD_SIZE %3lu" UNCOLOR "\n", board_size);
+	fflush(stdout);
+	printf(" " CYAN_BG "TETRIMINO:" UNCOLOR "\n");
+	fflush(stdout);
+	display_tetrimino_short(tetrimino);
 	bitarr = bitarray_ref(board_size * board_size, UPDATE);
+	bitarrzero(bitarr);
 	index = 0;
 	while (index < board_size * board_size)
 	{
@@ -74,14 +80,16 @@ static int	ft_test(unsigned short tetrimino, unsigned long board_size)
 			success = bitarrset(bitarr, index, tetrilong);
 			if (success == 1)
 			{
-				display_bitarray(bitarr, board_size);
+				//display_bitarray(bitarr, board_size);
 				bitarrunset(bitarr, index, tetrilong);
+				bitarrset(bitarr, index, 1UL << 63);
 			}
 			else if (success == (unsigned char)(-1))
-				return (0);
+				break ;
 		}
 		index++;
 	}
+	display_bitarray(bitarr, board_size);
 	return (0);
 }
 
@@ -98,7 +106,7 @@ int	main(void)
 	unsigned long	board_size;
 
 	function_loader_for_debugging();
-	board_size = 8;
+	board_size = 5;
 	while (board_size <= 20)
 	{
 		if (ft_test(I_0, board_size)

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 19:38:42 by thakala           #+#    #+#              #
-#    Updated: 2022/01/15 12:02:00 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/23 13:36:50 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ AUXILIARY_SOURCES := $(foreach auxiliary, $(AUXILIARY_SOURCES), $(AUX_DIR)/$(aux
 
 INC_DIR = \
 	$(SRC_DIR)/includes \
-	./includes
+	./includes \
+	../../../../fillit-mrozhnov-thakala/fillit/
 
 INCLUDES = $(shell find $(INC_DIR) -type f -name *.h)
 
