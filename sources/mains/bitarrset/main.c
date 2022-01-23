@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:44:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 17:19:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:20:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static unsigned long	ceiling_division_ref(unsigned long dividend, \
 	unsigned long	remnant_truth;
 
 	division = dividend / divisor;
-	remnant_truth = !!(dividend % sizeof(unsigned long));
+	remnant_truth = !!(dividend % divisor);
 	return (division + remnant_truth);
 }
 
@@ -45,7 +45,7 @@ t_bitarr	*bitarray_ref(unsigned long len, unsigned char flags)
 		bitarr->size *= BYTE_BITCOUNT;
 		if (!bitarr->arr)
 		{
-			free(bitarr); //optional bitarrdel here
+			free(bitarr);
 			bitarr = NULL;
 			return (NULL);
 		}
@@ -56,7 +56,7 @@ t_bitarr	*bitarray_ref(unsigned long len, unsigned char flags)
 	return (bitarr);
 }
 
-static int	ft_test(unsigned long board_size)
+static int	ft_test(unsigned short tetrimino, unsigned long board_size)
 {
 	t_bitarr		*bitarr;
 	unsigned char	success;
@@ -65,20 +65,20 @@ static int	ft_test(unsigned long board_size)
 
 
 	bitarr = bitarray_ref(board_size * board_size, UPDATE);
-	display_bitarray(bitarr, board_size);
 	index = 0;
 	while (index < board_size * board_size)
 	{
-		tetrilong = pad_short(Z_0, index, board_size);
+		tetrilong = pad_short(tetrimino, index, board_size);
 		if (tetrilong != (unsigned long)(-1))
 		{
 			success = bitarrset(bitarr, index, tetrilong);
-			if (!success)
-				printf("success: %hhu\n", success);
-			display_bitarray(bitarr, board_size);
-			if (success)
+			if (success == 1)
+			{
+				display_bitarray(bitarr, board_size);
 				bitarrunset(bitarr, index, tetrilong);
-			display_bitarray(bitarr, board_size);
+			}
+			else if (success == (unsigned char)(-1))
+				return (0);
 		}
 		index++;
 	}
@@ -95,7 +95,35 @@ static void	function_loader_for_debugging(void)
 
 int	main(void)
 {
+	unsigned long	board_size;
+
 	function_loader_for_debugging();
-	ft_test(9);
+	board_size = 8;
+	while (board_size <= 20)
+	{
+		if (ft_test(I_0, board_size)
+			|| ft_test(I_1, board_size)
+			|| ft_test(J_0, board_size)
+			|| ft_test(J_1, board_size)
+			|| ft_test(J_2, board_size)
+			|| ft_test(J_3, board_size)
+			|| ft_test(L_0, board_size)
+			|| ft_test(L_1, board_size)
+			|| ft_test(L_2, board_size)
+			|| ft_test(L_3, board_size)
+			|| ft_test(O_0, board_size)
+			|| ft_test(S_0, board_size)
+			|| ft_test(S_1, board_size)
+			|| ft_test(T_0, board_size)
+			|| ft_test(T_1, board_size)
+			|| ft_test(T_2, board_size)
+			|| ft_test(T_3, board_size)
+			|| ft_test(Z_0, board_size)
+			|| ft_test(Z_1, board_size))
+		{
+			return (1);
+		}
+		board_size++;
+	}
 	return (0);
 }
