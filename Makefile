@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/23 16:33:42 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/24 15:37:50 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,10 +68,11 @@ directories: | dir-obj-main dir-bin dir-obj
 	@echo "Create directories."
 
 dir-obj:
-	mkdir -p $(OBJ_DIR)/fillit
+	mkdir -p $(OBJ_DIR)/fillit $(OBJ_DIR)/evaluation
 
 dir-bin:
 	mkdir -p $(foreach f, $(FILLIT_FUNCTIONS), $(BIN_DIR)/$(f))
+	mkdir -p $(BIN_DIR)/evaluation
 
 dir-obj-main:
 	mkdir -p $(foreach main, $(FILLIT_FUNCTIONS), $(OBJ_DIR)/mains/$(main))
@@ -190,3 +191,10 @@ solve: $(FILLIT_DIR)/solve.c
 		$(SRC_DIR)/helpers/libhelp.a \
 		$(LIBFT_DIR)/libft.a
 
+generator: $(SRC_DIR)/evaluation/generator.c
+	$(CC) $(DBFLAGS) -c $< \
+		-o $(OBJ_DIR)/evaluation/$@.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) $(OBJ_DIR)/evaluation/$@.o \
+		$(SRC_DIR)/helpers/libhelp.a \
+		-o $(BIN_DIR)/evaluation/$@.out
