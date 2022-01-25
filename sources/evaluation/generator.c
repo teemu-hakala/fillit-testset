@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:23:40 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 15:43:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 11:53:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,17 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <errno.h>
 
 #define LEN_TETRIMINO 16U
 #define LEN_TETRIMINO_STR 20UL
 #define TETRIMINO_STR_ROW_WIDTH 5U
+#define CWD "/fillit-testset/binaries/evaluation"
+#define OUTPUT_DIR "generated_inputs"
 
 static int	errors(char *message, int output)
 {
@@ -32,7 +39,7 @@ static char	*filename(const char *format_string, unsigned long file_id)
 	char	*name;
 
 	name = (char *)malloc(sizeof(char) * \
-		(snprintf(NULL, 0, format_string, file_id)));
+		(snprintf(NULL, 0, format_string, file_id) + 1));
 	sprintf(name, format_string, file_id);
 	return (name);
 }
@@ -71,16 +78,20 @@ static int	generator(unsigned short *tetriminoes)
 	int						fd;
 	char					*tetrimino_string;
 
-	name = filename("test%05lu.generatedinput", file_id++);
+	name = filename("./"OUTPUT_DIR"/%05lutest.generatedinput", file_id++);
 	printf("processing file: %s\n", name);
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
+	{
+		printf("ERRNO: FILE OPEN ERROR: %s\n", strerror(errno));
 		return (errors("file open error", -1));
+	}
 	while (*tetriminoes)
 	{
-		tetrimino_string = generate_tetrimino(*tetriminoes++);
+		tetrimino_string = generate_tetrimino(*tetriminoes);
 		write(fd, tetrimino_string, LEN_TETRIMINO_STR);
-		write(fd, "\n", 1);
+		if (*++tetriminoes)
+			write(fd, "\n", 1);
 		free(tetrimino_string);
 	}
 	return (0);
@@ -95,8 +106,37 @@ static void	function_loader_for_debugging(void)
 	display_tetrimino_short(J_1);
 }
 
+/*
+	if (strstr(strrev(cwd), strrev(CWD)))
+	^Will always match starting from the end.
+	Add chmod to change directory mode to include executable rights.
+*/
+
 int	main(void)
 {
+	static struct stat	st = {0};
+	static char			cwd[PATH_MAX];
+
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	{
+		printf("Current working dir: %s\n", cwd);
+		if (strstr(cwd, CWD))
+		{
+			if (stat(OUTPUT_DIR, &st) == -1)
+				mkdir(OUTPUT_DIR, 0755);
+		}
+		else
+		{
+			perror("please run inside the cwd of " CWD);
+			return (1);
+		}
+	}
+	else
+	{
+		perror("getcwd() error");
+		return (1);
+	}
 	generator((unsigned short []){O_0, I_1, J_2, L_0, 0});
 	function_loader_for_debugging();
+	return (0);
 }
