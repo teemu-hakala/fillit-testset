@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/26 20:02:53 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 20:10:22 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,14 @@ FILLIT_DIR_CONFIG = ../$(shell cat config/fillit_dir.config)
 
 LIBFT_DIR = $(FILLIT_DIR_CONFIG)/libft
 
-FILLIT_DIR = $(FILLIT_DIR_CONFIG)/fillit
+FILLIT_DIR = $(FILLIT_DIR_CONFIG)/fillit_sources
 
 FILLIT_FUNCTIONS = \
 	pad_short \
 	bitarray \
 	bitarrset \
-	solve
+	solve \
+	fillit
 
 FILLIT_SOURCES := ${FILLIT_FUNCTIONS:=.c}
 
@@ -216,6 +217,9 @@ fillit:	$(FILLIT_DIR)/fillit.c
 	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrzero.c \
 		-o $(OBJ_DIR)/fillit/bitarrzero.o \
 		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/convert_to_short.c \
+		-o $(OBJ_DIR)/fillit/convert_to_short.o \
+		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/display.c \
 		-o $(OBJ_DIR)/fillit/display.o \
 		$(foreach i, $(INC_DIR), -I $(i))
@@ -237,15 +241,18 @@ fillit:	$(FILLIT_DIR)/fillit.c
 	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/split_long.c \
 		-o $(OBJ_DIR)/fillit/split_long.o \
 		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/tetrimino_reference.c \
+		-o $(OBJ_DIR)/fillit/tetrimino_reference.o \
+		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) -c $(SRC_DIR)/mains/$@/main.c \
 		-o $(OBJ_DIR)/mains/$@/main.o \
 		$(foreach i, $(INC_DIR), -I $(i))
 	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
-		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
 		$(OBJ_DIR)/fillit/bitarray.o \
 		$(OBJ_DIR)/fillit/bitarrset.o \
 		$(OBJ_DIR)/fillit/bitarrunset.o \
 		$(OBJ_DIR)/fillit/bitarrzero.o \
+		$(OBJ_DIR)/fillit/convert_to_short.o \
 		$(OBJ_DIR)/fillit/display.o \
 		$(OBJ_DIR)/fillit/fillit.o \
 		$(OBJ_DIR)/fillit/get_tetriminoes.o \
@@ -253,6 +260,7 @@ fillit:	$(FILLIT_DIR)/fillit.c
 		$(OBJ_DIR)/fillit/place_alphabet.o \
 		$(OBJ_DIR)/fillit/solve.o \
 		$(OBJ_DIR)/fillit/split_long.o \
+		$(OBJ_DIR)/fillit/tetrimino_reference.o \
 		-o $(BIN_DIR)/$@/$@.out \
 		$(SRC_DIR)/helpers/libhelp.a \
 		$(LIBFT_DIR)/libft.a
