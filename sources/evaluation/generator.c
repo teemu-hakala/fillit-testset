@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:23:40 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 11:53:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 12:00:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define CWD "/fillit-testset/binaries/evaluation"
 #define OUTPUT_DIR "generated_inputs"
 
-static int	errors(char *message, int output)
+static int	errors_ref(char *message, int output)
 {
 	printf("%s", message);
 	return (output);
@@ -84,7 +84,7 @@ static int	generator(unsigned short *tetriminoes)
 	if (fd == -1)
 	{
 		printf("ERRNO: FILE OPEN ERROR: %s\n", strerror(errno));
-		return (errors("file open error", -1));
+		return (errors_ref("file open error", -1));
 	}
 	while (*tetriminoes)
 	{
@@ -137,6 +137,10 @@ int	main(void)
 		return (1);
 	}
 	generator((unsigned short []){O_0, I_1, J_2, L_0, 0});
+	generator((unsigned short []){O_0, I_1, J_2, L_0, \
+		O_0, I_1, J_2, L_0, \
+		O_0, I_1, J_2, L_0, \
+		O_0, I_1, J_2, L_0, 0});
 	function_loader_for_debugging();
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/10 16:50:31 by thakala           #+#    #+#              #
-#    Updated: 2022/01/24 15:37:50 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 20:02:53 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,3 +198,61 @@ generator: $(SRC_DIR)/evaluation/generator.c
 	$(CC) $(DBFLAGS) $(OBJ_DIR)/evaluation/$@.o \
 		$(SRC_DIR)/helpers/libhelp.a \
 		-o $(BIN_DIR)/evaluation/$@.out
+
+fillit:	$(FILLIT_DIR)/fillit.c
+	@echo "$@ rule called"
+	$(CC) $(DBFLAGS) -c $(patsubst %, $(FILLIT_DIR)/%.c, $@) \
+		-o $(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarray.c \
+		-o $(OBJ_DIR)/fillit/bitarray.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrset.c \
+		-o $(OBJ_DIR)/fillit/bitarrset.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrunset.c \
+		-o $(OBJ_DIR)/fillit/bitarrunset.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/bitarrzero.c \
+		-o $(OBJ_DIR)/fillit/bitarrzero.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/display.c \
+		-o $(OBJ_DIR)/fillit/display.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/fillit.c \
+		-o $(OBJ_DIR)/fillit/fillit.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/get_tetriminoes.c \
+		-o $(OBJ_DIR)/fillit/get_tetriminoes.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/pad_short.c \
+		-o $(OBJ_DIR)/fillit/pad_short.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/place_alphabet.c \
+		-o $(OBJ_DIR)/fillit/place_alphabet.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/solve.c \
+		-o $(OBJ_DIR)/fillit/solve.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(FILLIT_DIR)/split_long.c \
+		-o $(OBJ_DIR)/fillit/split_long.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) -c $(SRC_DIR)/mains/$@/main.c \
+		-o $(OBJ_DIR)/mains/$@/main.o \
+		$(foreach i, $(INC_DIR), -I $(i))
+	$(CC) $(DBFLAGS) $(patsubst %, $(OBJ_DIR)/mains/%/main.o, $@) \
+		$(patsubst %, $(OBJ_DIR)/fillit/%.o, $@) \
+		$(OBJ_DIR)/fillit/bitarray.o \
+		$(OBJ_DIR)/fillit/bitarrset.o \
+		$(OBJ_DIR)/fillit/bitarrunset.o \
+		$(OBJ_DIR)/fillit/bitarrzero.o \
+		$(OBJ_DIR)/fillit/display.o \
+		$(OBJ_DIR)/fillit/fillit.o \
+		$(OBJ_DIR)/fillit/get_tetriminoes.o \
+		$(OBJ_DIR)/fillit/pad_short.o \
+		$(OBJ_DIR)/fillit/place_alphabet.o \
+		$(OBJ_DIR)/fillit/solve.o \
+		$(OBJ_DIR)/fillit/split_long.o \
+		-o $(BIN_DIR)/$@/$@.out \
+		$(SRC_DIR)/helpers/libhelp.a \
+		$(LIBFT_DIR)/libft.a

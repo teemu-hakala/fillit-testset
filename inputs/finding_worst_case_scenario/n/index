@@ -1,0 +1,5 @@
+
+
+
+candidate2: 10 -> 8 (17.125 s) (callgrind 9:45.60) <-- REFERENCE
+candidate3: 9 -> 7 (0.065 s)
