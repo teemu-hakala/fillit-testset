@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:23:40 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 16:18:27 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 21:33:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,26 @@ int	main(void)
 		O_0, I_1, J_2, L_0, 0});
 	generator((unsigned short []){I_0, I_1, J_0, J_1, J_2, J_3, L_0, L_1, L_2, \
 		L_3, O_0, S_0, S_1, T_0, T_1, T_2, T_3, Z_0, Z_1, 0});
+	generator((unsigned short []){I_0, 0});
+	generator((unsigned short []){I_1, 0});
+	generator((unsigned short []){J_0, 0});
+	generator((unsigned short []){J_1, 0});
+	generator((unsigned short []){J_2, 0});
+	generator((unsigned short []){J_3, 0});
+	generator((unsigned short []){L_0, 0});
+	generator((unsigned short []){L_1, 0});
+	generator((unsigned short []){L_2, 0});
+	generator((unsigned short []){L_3, 0});
+	generator((unsigned short []){O_0, 0});
+	generator((unsigned short []){S_0, 0});
+	generator((unsigned short []){S_1, 0});
+	generator((unsigned short []){T_0, 0});
+	generator((unsigned short []){T_1, 0});
+	generator((unsigned short []){T_2, 0});
+	generator((unsigned short []){T_3, 0});
+	generator((unsigned short []){Z_0, 0});
+	generator((unsigned short []){Z_1, 0});
+	generator((unsigned short []){T_0, O_0, 0});
 	function_loader_for_debugging();
 	return (0);
 }
