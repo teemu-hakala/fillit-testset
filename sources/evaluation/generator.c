@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:23:40 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:00:10 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 16:18:27 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int	main(void)
 		O_0, I_1, J_2, L_0, \
 		O_0, I_1, J_2, L_0, \
 		O_0, I_1, J_2, L_0, 0});
+	generator((unsigned short []){I_0, I_1, J_0, J_1, J_2, J_3, L_0, L_1, L_2, \
+		L_3, O_0, S_0, S_1, T_0, T_1, T_2, T_3, Z_0, Z_1, 0});
 	function_loader_for_debugging();
 	return (0);
 }
